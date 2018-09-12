@@ -1,0 +1,692 @@
+set nocompatible
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+"set diffexpr=MyDiff()
+"function MyDiff()
+"  let opt = '-a --binary '
+"  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+"  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+"  let arg1 = v:fname_in
+"  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+"  let arg2 = v:fname_new
+"  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+"  let arg3 = v:fname_out
+"  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+"  let eq = ''
+"  if $VIMRUNTIME =~ ' '
+"    if &sh =~ '\<cmd'
+"      let cmd = '""' . $VIMRUNTIME . '\diff"'
+"      let eq = '"'
+"    else
+"      let cmd = substitute($"VIMRUNTIME, ' ', '" ', '') . '\diff"'
+"    endif
+"  else
+"    let cmd = $VIMRUNTIME . '\diff'
+"  endif
+"  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+"endfunction
+
+
+"==============================
+" 常用
+"==============================
+syntax on "开启语法高亮
+"colo desertEx "颜色方案
+colo molokai "颜色方案
+"colorscheme solarized
+"filetype on "侦测文件类型
+filetype off "Vundle required
+filetype indent on "为特定文件类型载入相关缩进文件
+filetype plugin on "允许插件
+let mapleader=','
+set completeopt=longest,menu "开启智能补全
+set nocompatible "不要vim模仿vi模式
+set number "显示行号
+set go= "隐藏gui
+"set go+=m "菜单栏
+"set go+=T "工具栏
+"set go+=L "左侧滚动条
+"set go+=r "右侧滚动条
+"set go+=b "底部滚动条
+"set showtabline=0 "隐藏tab栏
+"set vb t_vb= "错误时不要发出Beep声
+set novisualbell "不要闪烁,与不要Beep互斥
+set nobackup "不生成备份文件
+set noswapfile "不生成临时文件
+set noundofile "不生成undo文件
+set nowrap "不自动换行
+"set linebreak "整词换行 自动换行下才有效果
+set showmatch "匹配括号
+"set nohlsearch "高亮显示结果
+set incsearch "输入要搜索的文字时实时匹配结果
+set ignorecase "忽略大小写
+set fdm=marker
+
+"配置缩进 begin
+"默认设置TAB长度为4个SPACE
+set tabstop=4 "设置制表符宽度为4
+set softtabstop=4 "设置软制表符宽度为4
+set shiftwidth=4 "设置缩进的空格数为4
+set expandtab "设置TAB为4个SPACE
+" 不同的文件显示不同的缩进
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=4 sw=4 sts=0 noexpandtab
+autocmd Filetype coffeescript setlocal ts=4 sw=4 sts=0 noexpandtab
+"配置缩进 end
+
+set autochdir "自动设置目录为当前编辑的文件所在的目录
+set ruler "显示标尺
+set showcmd "显示命令行
+"set clipboard+=unnamed "共享剪切板
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容
+"set backspace=2 "设置退格键可用
+"set scrolloff=5 "光标移动到buffer的顶部和底部时保持5行距离
+"set cindent
+set autoindent "设置自动缩进
+"winpos 200 400 "gvim启动时的位置
+"set lines=25 "gvim启动时的高度
+"set columns=100 "gvim启动时的宽度
+set list "显示TAB,默认是用^I填充TAB
+set listchars=tab:>-,trail:- "设置TAB和行尾空格的显示
+"高亮行尾空格
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+set cursorline "高亮当前行
+hi cursorline cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred
+"set cursorcolumn "高亮当前列
+"hi cursorcolumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred
+set guicursor+=a:blinkon0 "设置光标不闪烁
+"判定当前操作系统类型
+if (has("win32") || has("win95") || has("win64") || has("win16"))
+    let g:isWin=1
+else
+    let g:isWin=0
+endif "(has("win32") || has("win95") || has("win64") || has("win16"))
+"允许鼠标的使用 防止liunx终端下无法拷贝
+if (g:isWin==1)
+    if has ('mouse')
+        set mouse=a
+    endif "has ('mouse')
+    au GUIEnter * simalt ~x
+endif "(g:isWin==1)
+
+"判断是终端还是 gvim
+if has("gui_running")
+    let g:isGUI = 1
+else
+    let g:isGUI = 0
+endif "has("gui_running")
+
+"==============================
+" 编码
+"==============================
+set encoding=utf-8
+set fileencodings=utf-8,chinese,cp936
+
+
+"在Windows下的编码设置
+if (g:isWin==1)
+    set fileencoding=chinese
+else
+    set fileencoding=utf-8
+endif
+
+"解决菜单乱码
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"解决CMD乱码
+language messages zh_CN.utf-8
+
+
+"==============================
+" 字体
+"==============================
+"17~19大屏幕
+set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+"set guifont=Source_Code_Pro_for_Powerline:h11:cANSI
+"set gfw=幼圆:h11:cGB2312
+"14以下小屏幕
+"set guifont=Arial_monospaced_for_SAP:h9:cANSI
+"set gfn=Consolas:h11:cANSI
+"set gfw=幼圆:h10:cGB2312
+
+"运行Python代码
+"nmap <F5> :w<CR>:!python %<CR>
+
+"一键编译、连接、运行C/C++ {{{
+" F9 一键保存、编译、连接存并运行
+map <F9> :call Run()<CR>
+imap <F9> <ESC>:call Run()<CR>
+
+" Ctrl + F9 一键保存并编译
+"map <c-F9> :call Compile()<CR>
+"imap <c-F9> <ESC>:call Compile()<CR>
+
+" Ctrl + F10 一键保存并连接
+"map <c-F10> :call Link()<CR>
+"imap <c-F10> <ESC>:call Link()<CR>
+
+let s:LastShellReturn_C = 0
+let s:LastShellReturn_L = 0
+let s:ShowWarning = 1
+let s:Obj_Extension = '.o'
+let s:Exe_Extension = '.exe'
+let s:Sou_Error = 0
+
+let s:windows_CFlags = 'gcc\ -fexec-charset=gbk\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
+let s:linux_CFlags = 'gcc\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
+
+let s:windows_CPPFlags = 'g++\ -fexec-charset=gbk\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
+let s:linux_CPPFlags = 'g++\ -Wall\ -g\ -O0\ -c\ %\ -o\ %<.o'
+
+func! Compile()
+    exe ":ccl"
+    exe ":update"
+    if expand("%:e") == "c" || expand("%:e") == "cpp" || expand("%:e") == "cxx"
+        let s:Sou_Error = 0
+        let s:LastShellReturn_C = 0
+        let Sou = expand("%:p")
+        let Obj = expand("%:p:r").s:Obj_Extension
+        let Obj_Name = expand("%:p:t:r").s:Obj_Extension
+        let v:statusmsg = ''
+        if !filereadable(Obj) || (filereadable(Obj) && (getftime(Obj) < getftime(Sou)))
+            redraw!
+            if expand("%:e") == "c"
+                if g:isWin
+                    exe ":setlocal makeprg=".s:windows_CFlags
+                else
+                    exe ":setlocal makeprg=".s:linux_CFlags
+                endif
+                echohl WarningMsg | echo " compiling..."
+                silent make
+            elseif expand("%:e") == "cpp" || expand("%:e") == "cxx"
+                if g:isWin
+                    exe ":setlocal makeprg=".s:windows_CPPFlags
+                else
+                    exe ":setlocal makeprg=".s:linux_CPPFlags
+                endif
+                echohl WarningMsg | echo " compiling..."
+                silent make
+            endif
+            redraw!
+            if v:shell_error != 0
+                let s:LastShellReturn_C = v:shell_error
+            endif
+            if g:isWin
+                if s:LastShellReturn_C != 0
+                    exe ":bo cope"
+                    echohl WarningMsg | echo " compilation failed"
+                else
+                    if s:ShowWarning
+                        exe ":bo cw"
+                    endif
+                    echohl WarningMsg | echo " compilation successful"
+                endif
+            else
+                if empty(v:statusmsg)
+                    echohl WarningMsg | echo " compilation successful"
+                else
+                    exe ":bo cope"
+                endif
+            endif
+        else
+            echohl WarningMsg | echo ""Obj_Name"is up to date"
+        endif
+    else
+        let s:Sou_Error = 1
+        echohl WarningMsg | echo " please choose the correct source file"
+    endif
+    exe ":setlocal makeprg=make"
+endfunc
+
+func! Link()
+    call Compile()
+    if s:Sou_Error || s:LastShellReturn_C != 0
+        return
+    endif
+    let s:LastShellReturn_L = 0
+    let Sou = expand("%:p")
+    let Obj = expand("%:p:r").s:Obj_Extension
+    if g:isWin
+        let Exe = expand("%:p:r").s:Exe_Extension
+        let Exe_Name = expand("%:p:t:r").s:Exe_Extension
+    else
+        let Exe = expand("%:p:r")
+        let Exe_Name = expand("%:p:t:r")
+    endif
+    let v:statusmsg = ''
+    if filereadable(Obj) && (getftime(Obj) >= getftime(Sou))
+        redraw!
+        if !executable(Exe) || (executable(Exe) && getftime(Exe) < getftime(Obj))
+            if expand("%:e") == "c"
+                setlocal makeprg=gcc\ -o\ %<\ %<.o
+                echohl WarningMsg | echo " linking..."
+                silent make
+            elseif expand("%:e") == "cpp" || expand("%:e") == "cxx"
+                setlocal makeprg=g++\ -o\ %<\ %<.o
+                echohl WarningMsg | echo " linking..."
+                silent make
+            endif
+            redraw!
+            if v:shell_error != 0
+                let s:LastShellReturn_L = v:shell_error
+            endif
+            if g:isWin
+                if s:LastShellReturn_L != 0
+                    exe ":bo cope"
+                    echohl WarningMsg | echo " linking failed"
+                else
+                    if s:ShowWarning
+                        exe ":bo cw"
+                    endif
+                    echohl WarningMsg | echo " linking successful"
+                endif
+            else
+                if empty(v:statusmsg)
+                    echohl WarningMsg | echo " linking successful"
+                else
+                    exe ":bo cope"
+                endif
+            endif
+        else
+            echohl WarningMsg | echo ""Exe_Name"is up to date"
+        endif
+    endif
+    setlocal makeprg=make
+endfunc
+
+func! Run()
+    let s:ShowWarning = 0
+    call Link()
+    let s:ShowWarning = 1
+    if s:Sou_Error || s:LastShellReturn_C != 0 || s:LastShellReturn_L != 0
+        return
+    endif
+    let Sou = expand("%:p")
+    let Obj = expand("%:p:r").s:Obj_Extension
+    if g:isWin
+        let Exe = expand("%:p:r").s:Exe_Extension
+    else
+        let Exe = expand("%:p:r")
+    endif
+    if executable(Exe) && getftime(Exe) >= getftime(Obj) && getftime(Obj) >= getftime(Sou)
+        redraw!
+        echohl WarningMsg | echo " running..."
+        if g:isWin
+            exe ":!%<.exe"
+        else
+            if g:isGUI
+                exe ":!gnome-terminal -e ./%<"
+            else
+                exe ":!./%<"
+            endif
+        endif
+        redraw!
+        echohl WarningMsg | echo " running finish"
+    endif
+endfunc
+"}}}
+
+" pathogen 插件管理{{{
+"call pathogen#infect()
+"}}}
+
+"Vundle 插件管理{{{
+" set the runtime path to include Vundle and initialize
+"set rtp+=$VIM/vimfiles/bundle/Vundle.vim/
+"call vundle#rc('$VIM/vimfiles/bundle/')
+"call vundle#begin()
+"
+"Plugin 'VundleVim/Vundle.vim'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'bling/vim-bufferline'
+"Plugin 'scrooloose/nerdtree'
+"Plugin 'majutsushi/tagbar'
+"Plugin 'scrooloose/nerdcommenter'
+""Plugin 'dkprice/vim-easygrep'
+""Plugin 'ctrlpvim/ctrlp.vim'
+"Plugin 'Yggdroot/LeaderF'
+"Plugin 'godlygeek/tabular'
+"Plugin 'Yggdroot/indentLine'
+"Plugin 'kshenoy/vim-signature'
+""Plugin 'vim-multiple-cursors'
+""Plugin 'w0rp/ale'
+""Plugin 'Valloric/YouCompleteMe'
+"Plugin 'jlanzarotta/bufexplorer'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
+"Plugin 'kien/rainbow_parentheses.vim'
+"Plugin 'yianwillis/vimcdoc'
+"Plugin 'plasticboy/vim-markdown'
+"Plugin 'dimasg/vim-mark'
+"Plugin 'vim-scripts/YankRing.vim'
+""文本搜索
+"Plugin 'rking/ag.vim'
+"Plugin 'ap/vim-css-color'
+"Plugin 'easymotion/vim-easymotion'
+"Plugin 'rosenfeld/conque-term'
+
+"call vundle#end()
+"filetype plugin indent on    " required
+"}}}
+
+"vim-plug 插件管理
+" Plugins will be downloaded under the specified directory.
+call plug#begin('$VIM/vimfiles/bundle')
+
+" Declare the list of Plugins.
+"Plug 'VundleVim/Vundle.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bling/vim-bufferline'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'majutsushi/tagbar'
+"Plug 'dkprice/vim-easygrep'
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/indentLine'
+Plug 'godlygeek/tabular'
+Plug 'kshenoy/vim-signature'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-expand-region'
+Plug 'w0rp/ale'
+Plug 'Valloric/YouCompleteMe'
+"Plug 'rdnetto/YCM-Generator'
+"Plug 'jlanzarotta/bufexplorer'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+"Plug 'kien/rainbow_parentheses.vim'
+Plug 'yianwillis/vimcdoc'
+Plug 'plasticboy/vim-markdown'
+Plug 'dimasg/vim-mark'
+Plug 'rking/ag.vim'
+Plug 'ap/vim-css-color'
+Plug 'easymotion/vim-easymotion'
+Plug 'rosenfeld/conque-term'
+Plug 'jiangmiao/auto-pairs'
+Plug 'vim-scripts/YankRing.vim'
+Plug 'vim-scripts/a.vim'
+"Plug 'vim-scripts/TaskList.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'danro/rename.vim'
+Plug 'pbrisbin/vim-mkdir'
+Plug 'brooth/far.vim'
+Plug 'scwbin/csExplorer'
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+"
+
+"airline{{{
+set laststatus=2 "总是显示状态栏
+set noshowmode
+set t_Co=256 "显示颜色
+"let g:airline_theme="badwolf"
+let g:airline_theme="papercolor"
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+let g:airline_powerline_fonts = 1 "使用powerline打过补丁的字体
+"let g:airline#extensions#tabline#enabled = 1 "开启tabline
+let g:airline#extensions#tabline#left_sep = ' ' "tabline中当前buffer两端的分隔字符
+let g:airline#extensions#tabline#left_alt_sep = '|' "tabline中未激活buffer两端的分隔字符
+let g:airline#extensions#tabline#buffer_nr_show = 1 "tabline中buffer显示编号
+"}}}
+
+"NERDTree{{{
+nmap <leader>f :NERDTreeToggle<CR>
+"let NERDChristmasTree=0
+"let NERDTreeChDirMode=2
+let NERDTreeShowBookmarks=1
+let NERDTreeWinSize=35
+"let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif "close vim if the only window left open is a NERDTree
+"autocmd vimenter * NERDTree "open a NERDTree automatically when vim starts up
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+"}}}
+
+"tagbar{{{
+let g:tagbar_autofocus=1
+"在tagbar中添加markdown支持
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : 'd:/workspace/4vim/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
+nmap <leader>t :TagbarToggle<CR>
+"}}}
+
+"ALE 语法静态检查{{{
+let g:ale_enabled = 0 "默认关闭ALE
+"let g:ale_linters = {
+              "\ 'python' : ['flake8'],
+              "\}
+let g:ale_linters = {
+            \   'c++': ['gcc'],
+            \   'c': ['gcc'],
+            \}
+"let g:ale_python_flake8_executable='python'   " or 'python3' for Python 3
+"let g:ale_python_flake8_options='-m flake8'
+
+let g:ale_set_highlights = 1 "出错的地方会有波浪线
+"let g:ale_sign_error = '•'
+"let g:ale_sign_warning = '•'
+"let g:ale_sign_error = 'E:'
+"let g:ale_sign_warning = 'W:'
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+"highlight clear ALEErrorSign
+"highlight clear ALEWarningSign
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_warning_str = 'Warning'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
+let g:ale_lint_on_text_changed = 'never' "文件内容发生变化时不进行检查
+"let g:ale_lint_on_enter = 0 "打开文件时不进行检查
+"let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
+"let g:ale_c_clang_options = '--target=x86_64-pc-windows-msvc -std=c11 -Wall'
+"let g:ale_cpp_clang_options = '--target=x86_64-pc-windows-msvc -std=c++14 -Wall'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+""打开ALE
+nnoremap <Leader>ck :ALEToggle<CR>
+"let g:airline#extensions#ale#enabled = 1
+"let s:error_symbol = get(g:, 'airline#extensions#ale#error_symbol', '✗ ')
+"let s:warning_symbol = get(g:, 'airline#extensions#ale#warning_symbol', '⚡ ')
+"}}}
+
+"CtrlP 文件模糊搜索{{{
+""set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'file': '\v\.(exe|so|dll)$',
+"  \ 'link': 'some_bad_symbolic_links',
+"  \ }
+"
+""let g:ctrlp_map = '<Leader>p' "<Leader>p搜索当前目录下文件
+""let g:ctrlp_cmd = 'CtrlP'
+""nmap <c-m> :CtrlPMRUFiles<CR>
+""nmap <Leader>b :CtrlPBuffer<CR>
+"let g:ctrlp_working_path_mode = 0
+"let g:ctrlp_match_window_bottom = 1
+"let g:ctrlp_max_height = 15 "修改QuickFix窗口显示的最大条目数
+"let g:ctrlp_match_window_reversed = 0
+"let g:ctrlp_mruf_max = 500 "设置MRU最大条目数为500
+"let g:ctrlp_follow_symlinks = 1
+"let g:ctrlp_by_filename = 1 "默认使用全路径搜索，置1后按文件名搜索，准确率会有所提高，可以用<C-d>进行切换
+"let g:ctrlp_regexp = 0 "默认不使用正则表达式，置1改为默认使用正则表达式，可以用<C-r>进行切换
+"let g:ctrlp_line_prefix = '♪ ' "自定义搜索列表的提示符
+
+"使用ag替换grep
+"if executable('ag')
+"  " Use Ag over Grep
+"  set grepprg=ag\ --nogroup\ --nocolor
+"  " Use ag in CtrlP for listing files.
+"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"  " Ag is fast enough that CtrlP doesn't need to cache
+"  "let g:ctrlp_use_caching = 0
+"endif
+"}}}
+
+"LeaderF 文件的模糊搜索{{{
+let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_DefaultMode = 'FullPath'
+let g:Lf_StlColorscheme = 'powerline'
+nmap <C-M> :LeaderfMru<CR>
+"}}}
+
+"ctrlspace{{{
+"set hidden
+"if has("gui_running")
+    "" Settings for MacVim and Inconsolata font
+    "let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
+"endif
+"if executable("ag")
+    "let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+"endif
+"let g:CtrlSpaceSearchTiming = 500
+"}}}
+
+"rainbow_parentheses.vim 括号高亮{{{
+"let g:rbpt_colorpairs = [
+    "\ ['brown',       'RoyalBlue3'],
+    "\ ['Darkblue',    'SeaGreen3'],
+    "\ ['darkgray',    'DarkOrchid3'],
+    "\ ['darkgreen',   'firebrick3'],
+    "\ ['darkcyan',    'RoyalBlue3'],
+    "\ ['darkred',     'SeaGreen3'],
+    "\ ['darkmagenta', 'DarkOrchid3'],
+    "\ ['brown',       'firebrick3'],
+    "\ ['gray',        'RoyalBlue3'],
+    "\ ['black',       'SeaGreen3'],
+    "\ ['darkmagenta', 'DarkOrchid3'],
+    "\ ['Darkblue',    'firebrick3'],
+    "\ ['darkgreen',   'RoyalBlue3'],
+    "\ ['darkcyan',    'SeaGreen3'],
+    "\ ['darkred',     'DarkOrchid3'],
+    "\ ['red',         'firebrick3'],
+    "\ ]
+"let g:rbpt_max = 16
+"let g:rbpt_loadcmd_toggle = 0
+""au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+"}}}
+
+"vim-markdown{{{
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_toc_autofit = 1
+"}}}
+
+"YankRing.vim{{{
+let g:yankring_replace_n_pkey = '<m-p>'
+let g:yankring_replace_n_nkey = '<m-n>'
+nmap <leader>y :YRShow<CR>
+"}}}
+
+"easymotion{{{
+"map  / <Plug>(easymotion-sn)
+"omap / <Plug>(easymotion-tn)
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
+"}}}
+
+"YouCompleteMe{{{
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif "离开插入模式后自动关闭预览窗口
+"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>" "回车即选中当前项
+"上下左右键的行为 会显示其他信息
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+
+"youcompleteme  默认tab  s-tab 和自动补全冲突
+"let g:ycm_key_list_select_completion=['<c-n>']
+let g:ycm_key_list_select_completion = ['<Down>']
+"let g:ycm_key_list_previous_completion=['<c-p>']
+let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
+
+let g:ycm_collect_identifiers_from_tags_files=1 " 开启 YCM 基于标签引擎
+"let g:ycm_min_num_of_chars_for_completion=2 " 从第2个键入字符就开始罗列匹配项
+let g:ycm_cache_omnifunc=0  " 禁止缓存匹配项,每次都重新生成匹配项
+let g:ycm_seed_identifiers_with_syntax=1    " 语法关键字补全
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>    "force recomile with syntastic
+"nnoremap <leader>lo :lopen<CR> "open locationlist
+"nnoremap <leader>lc :lclose<CR>    "close locationlist
+"inoremap <leader><leader> <C-x><C-o>
+"在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+"在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+"注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+"跳转到定义处
+nnoremap <leader>d :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"}}}
+
+"bufferline{{{
+let g:bufferline_echo = 0
+"}}}
+
+"incsearch{{{
+map /  <Plug>(incsearch-forward)
+"map ?  <Plug>(incsearch-backward)
+"map g/ <Plug>(incsearch-stay)
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+"map *  <Plug>(incsearch-nohl-*)
+"map #  <Plug>(incsearch-nohl-#)
+"map g* <Plug>(incsearch-nohl-g*)
+"map g# <Plug>(incsearch-nohl-g#)
+let g:incsearch#magic = '\v' " very magic
+"}}}
+
+"vim-multiple-cursors{{{
+set selection=inclusive
+"highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link multiple_cursors_visual StatusLineTerm
+"}}}
+
+"vim-scripts/TaskList.vim{{{
+"nmap <leader>td <Plug>TaskList
+"}}}
+
+"==============================
+" 键盘映射
+"==============================
+"{{{
+"删除行尾空格
+nmap <leader><SPACE> :%s/\s\+$<CR>
+"TAB替换为空格
+"前提是要保证开启了 set expandtab
+"nmap <leader><TAB> :%retab!<CR>
+"}}}
+
