@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>文件及目录管理 &mdash; Linux Tools Quick Tutorial</title>
+  
+
+  
+  
+
+  
+  <link href="_static/css/font_lato_googleapi.css" type='text/css'>
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Linux Tools Quick Tutorial" href="index.html"/> 
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Linux Tools Quick Tutorial</a>
+        
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="base/index.html">Linux基础</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base/01_use_man.html">1. 学会使用命令帮助</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/02_file_manage.html">2. 文件及目录管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/03_text_processing.html">3. 文本处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/04_disk.html">4. 磁盘管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/05_process_manage.html">5. 进程管理工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/06_monitor.html">6. 性能监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/07_network.html">7. 网络工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/08_user_manage.html">8. 用户管理工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="base/09_system_manage.html">9. 系统管理及IPC资源管理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advance/index.html">Linux工具进阶</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advance/01_program_build.html">1. 程序构建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advance/02_program_debug.html">2. 程序调试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advance/03_optimization.html">3. 性能优化</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tool/index.html">工具参考篇</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tool/gdb.html">1. gdb 调试利器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/ldd.html">2. ldd 查看程序依赖库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/lsof.html">3. lsof 一切皆文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/ps.html">4. ps 进程查看器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/pstack.html">5. pstack 跟踪进程栈</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/strace.html">6. strace 跟踪进程中的系统调用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/ipcs.html">7. ipcs 查询进程间通信状态</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/top.html">8. top linux下的任务管理器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/free.html">9. free 查询可用内存</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/vmstat.html">10. vmstat 监视内存使用情况</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/iostat.html">11. iostat 监视I/O子系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/sar.html">12. sar 找出系统瓶颈的利器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/readelf.html">13. readelf elf文件格式分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/objdump.html">14. objdump 二进制文件分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/nm.html">15. nm 目标文件格式分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/size.html">16. size 查看程序内存映像大小</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/wget.html">17. wget 文件下载</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/scp.html">18. scp 跨机远程拷贝</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tool/crontab.html">19. crontab 定时任务</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Linux Tools Quick Tutorial</a>
+      </nav>
+
+
+      
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>文件及目录管理</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/020-file-manage.rst.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="id1">
+<h1>文件及目录管理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>文件管理不外乎文件或目录的创建、删除、查询、移动，有mkdir/rm/mv</p>
+<p>文件查询是重点，用find来进行查询；find的参数丰富，也非常强大；</p>
+<p>查看文件内容是个大的话题，文本的处理有太多的工具供我们使用，在本章中只是点到即止，后面会有专门的一章来介绍文本的处理工具；</p>
+<p>有时候，需要给文件创建一个别名，我们需要用到ln，使用这个别名和使用原文件是相同的效果；</p>
+<div class="section" id="id2">
+<h2>创建和删除<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>创建：mkdir
+删除：rm   删除非空目录：rm -rf file目录
+删除日志
+$rm <a href="#id3"><span class="problematic" id="id4">*</span></a>log</p>
+<p>等价: $find ./ -name “<a href="#id5"><span class="problematic" id="id6">*</span></a>log” -exec rm {} ;</p>
+<p>查看当前目录下文件个数
+$find ./ | wc -l
+移动：mv
+复制：cp   复制目录：cp -r
+eg：$cp -r source_dir  dest_dir</p>
+</div>
+<div class="section" id="id7">
+<h2>目录切换<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>找到文件/目录位置：cd
+切换到上一个工作目录： cd -
+切换到home目录： cd  or  cd ~
+$pwd
+显示当前路径
+$cd path
+更改当前工作路径为path</p>
+</div>
+<div class="section" id="id8">
+<h2>列出目录项<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>显示当前目录下的文件 ls
+按时间排序，以列表的方式显示目录项 ls -lrt
+以上这个命令用到的频率如此之高，以至于我们需要为它建立一个快捷命令方式:
+在.bashrc 中设置命令别名：
+alias lsl=’ls -lrt’
+alias lm=’ls -al|more’
+这样，使用lsl，就可以显示目录中的文件按照修改时间排序；以列表方式显示；
+注：.bashrc 在/home/你的用户名/ 文件夹下，以隐藏文件的方式存储；可使用 ls -a 查看；</p>
+</div>
+<div class="section" id="find-locate">
+<h2>查找目录及文件 find/locate<a class="headerlink" href="#find-locate" title="Permalink to this headline">¶</a></h2>
+<p>搜寻文件或目录：
+$find ./ -name “core*” | xargs file
+查找目标文件夹中是否有obj文件：
+$find ./ -name ‘<em>.o’
+递归当前目录及子目录删除所有.o文件：
+$find ./ -name “</em>.o” -exec rm {} ;</p>
+<p>find是实时查找，如果需要更快的查询，可试试locate；locate会为文件系统建立索引数据库，如果有文件更新，需要定期执行更新命令来更新索引库；
+$locate string
+寻找包含有string的路径
+$updatedb
+与find不同，locate并不是实时查找。你需要更新数据库，以获得最新的文件索引信息。</p>
+</div>
+<div class="section" id="id9">
+<h2>查看文件内容<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>查看文件：cat vi head tail more
+$cat -n：显示时同时显示行号
+$ls -al <a href="#id10"><span class="problematic" id="id11">|</span></a>more:一页一页显示列表内容；
+$head - 10 <a href="#id12"><span class="problematic" id="id13">**</span></a>:只看前10行
+$head -1 filename 显示文件第一行
+$tail -5 filename 显示文件倒数第五行
+$diff file1 file2 查看两个文件间的差别
+$tail -f crawler.log 动态显示文本最新信息</p>
+</div>
+<div class="section" id="id14">
+<h2>查找文件内容<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>egrep ‘03.1/CO/AE’ TSF_STAT_111130.log.012
+egrep ‘A_LSHA777:C’ TSF_STAT_111130.log.035 &gt; co.out2
+co.out35:  egrep ‘A_LSHA777:C’ TSF_STAT_111130.log.035 &gt; co.out35</p>
+</div>
+<div class="section" id="id15">
+<h2>文件与目录权限修改<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<p>chown：改变文件的拥有者
+chmod：改变文件读、写、执行等属性
+递归子目录修改： chown -R tuxapp source/
+增加脚本可执行权限： chmod a+x  myscript</p>
+</div>
+<div class="section" id="id16">
+<h2>给文件增加别名<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>创建符号链接/硬链接：
+ln cc ccAgain :硬连接；删除一个，将仍能找到；
+ln -s cc ccTo :符号链接(软链接)；删除源，另一个无法使用；（后面一个ccTo 为新建的文件）</p>
+</div>
+<div class="section" id="id17">
+<h2>管道和重定向<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>批处理命令连接执行：
+串联: 使用分号 ;
+前面成功，则执行后面一条，否则，不执行:&amp;&amp;
+前面失败，则后一条执行:    ||
+eg：
+ls /proc &amp;&amp; echo  suss! || echo failed.
+能够提示命名是否执行成功or失败；
+与上述相同效果的是：
+if ls /proc; then echo suss; else echo fail; fi
+重定向：
+ls  proc/<em>.c &gt; list &gt; &amp;l 将结果输出到list，将错误输出到同一个文件末尾；
+等价的是：ls  proc/</em>.c &amp;&gt; list
+ls list1 list2：可同时列出多个文件；</p>
+<p>清空文件：   :&gt; a.txt
+重定向：最佳文本：  echo  aa &gt;&gt; a.txt</p>
+</div>
+<div class="section" id="id18">
+<h2>设置环境变量<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<p>启动帐号后自动执行的是 文件为 .profile，然后通过这个文件可设置自己的环境变量；
+安装的软件路径一般需要加入到path中：
+PATH=$APPDIR:/opt/app/soft/bin:$PATH:/usr/local/bin:$TUXDIR/bin:$ORACLE_HOME/bin;export PATH</p>
+</div>
+<div class="section" id="bash">
+<h2>Bash快捷输入或删除<a class="headerlink" href="#bash" title="Permalink to this headline">¶</a></h2>
+<p>快捷键：
+Ctl-U   删除光标到行首的所有字符,在某些设置下,删除全行
+Ctl-W   删除当前光标到前边的最近一个空格之间的字符
+Ctl-H   backspace,删除光标前边的字符
+Ctl-R： 匹配最相近的一个文件，然后输出</p>
+</div>
+<div class="section" id="id19">
+<h2>综合应用<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>cat -v record.log | grep AAA | grep -v BBB | wc -l
+查找record.log中包含AAA，但不包含BBB的记录的总数</p>
+</div>
+<div class="section" id="id20">
+<h2>总结<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>文件管理，目录的创建、删除、查询、管理: mkdir rm mv
+文件的查询和检索: find locate
+查看文件内容：cat vi tail more
+管道和重定向: ; | &amp;&amp;  &gt;</p>
+<p>Posted by: 大CC | 26MAY,2014
+博客：[blog.me115.com](<a class="reference external" href="http://blog.me115.com">http://blog.me115.com</a>)
+微博：[新浪微博](<a class="reference external" href="http://weibo.com/bigcc115">http://weibo.com/bigcc115</a>)</p>
+</div>
+</div>
+
+
+          </div>
+          
+          <footer>
+  
+
+  <!--添加disques，支持留言功能；线下自己使用时，请注释掉 <style>
+#ad {
+    float: right;
+    width: 29%;
+}
+
+#discuss {
+    float: left;
+    width: 70%;
+}
+
+em {
+    font-style: normal;
+}
+
+a, a .pre {
+    color: ;
+}
+
+body, body.dark,.nav>ul>li>a:hover, .nav>ul>li>div a:hover {
+	color: #3f4549 !important;
+}
+</style>
+<div>
+	<div class="section" id="discuss">
+
+		<h2>
+			讨论
+			<a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+		</h2>
+
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			var disqus_shortname = 'colin'; // required: replace example with your forum shortname
+
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+			(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	</div>
+
+	<div id="ad">
+		<a href="http://www.me115.com" style="padding: 0px 0px 0px 0px;display: block;" target="_blank"><img src="_static/me115_com.jpg"/></a>
+		<ul>
+			<li>木书架 - 互联网阅读分享</li>
+			<li>By 大CC</li>
+		</ul>
+	</div>
+</div>
+<div style="clear:both" />
+ ，因为disqus加载的速度太慢，影响本地浏览体验；-->
+  <hr/>  
+     <style>
+#ad {
+    float: right;
+    width: 29%;
+}
+
+#discuss {
+    float: left;
+    width: 70%;
+}
+
+em {
+    font-style: normal;
+}
+
+a, a .pre {
+    color: ;
+}
+
+body, body.dark,.nav>ul>li>a:hover, .nav>ul>li>div a:hover {
+	color: #3f4549 !important;
+}
+</style>
+<div>
+	<div class="section" id="discuss">
+
+		<h2>
+			讨论
+			<a class="headerlink" href="#discuss" title="永久链接至标题">¶</a>
+		</h2>
+
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			var disqus_shortname = 'colin'; // required: replace example with your forum shortname
+
+			/* * * DON'T EDIT BELOW THIS LINE * * */
+			(function() {
+			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+	</div>
+
+	<div id="ad">
+		<a href="http://www.me115.com" style="padding: 0px 0px 0px 0px;display: block;" target="_blank"><img src="_static/me115_com.jpg"/></a>
+		<ul>
+			<li>木书架 - 互联网阅读分享</li>
+			<li>By 大CC</li>
+		</ul>
+	</div>
+</div>
+<div style="clear:both" />
+ 
+  <hr/>
+  
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Colin http://blog.me115.com.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
